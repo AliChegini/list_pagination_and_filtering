@@ -1,16 +1,9 @@
 
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
 
+let totalStudents = document.body.getElementsByClassName("student-item cf").length;
+let studentsPerPage = 10;
 
+//console.log(totalStudents);
 
 
 /*** 
@@ -28,7 +21,14 @@
        "invoke" the function 
 ***/
 
+function showPage(studentList, pageNumber) {
+   for (let i = 0; i < studentList.length; i++) {
+      if (i > pageNumber * studentsPerPage) {
+         // hide elements
+      }
 
+   }
+}
 
 
 /*** 
