@@ -3,35 +3,54 @@
 let totalStudents = document.body.getElementsByClassName("student-item cf").length;
 let studentsPerPage = 10;
 
-//console.log(totalStudents);
+// getting htmlCollection
+let htmlCollection = document.body.getElementsByClassName("student-item cf")
+
+// converting htmlCollection to array
+let studentsArray = [].slice.call(htmlCollection);
+
+//console.log(studentsArray);
 
 
 /*** 
-   Create the `showPage` function to hide all of the items in the 
+   function to hide all of the items in the 
    list except for the ten you want to show.
-
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
 ***/
 
-function showPage(studentList, pageNumber) {
-   for (let i = 0; i < studentList.length; i++) {
-      if (i > pageNumber * studentsPerPage) {
-         // hide elements
-      }
+function showPage(students, pageCounter) {
+   // start of the slice
+   let start = (pageCounter - 1) * studentsPerPage 
 
-   }
+   // end of the slice
+   let end = start + studentsPerPage
+   let visibleStudents = students.slice(start, end);
+   document.body.se = visibleStudents;
+   //console.log(visibleStudents);
+
 }
 
+showPage(studentsArray, 1);
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
 ***/
+
+function appendPageLinks() {
+
+}
+
+
+// function to load buttons as needed
+function loadButtons() {
+   let buttonsNeeded = Math.floor(totalStudents / studentsPerPage) + 1;
+   let button = document.createElement("button");
+   button.innerHTML = "I am a button";
+   let pagination = document.createElement("div");
+   pagination.appendChild(button);
+
+   // document.body.appendChild(button);
+
+}
+
+loadButtons();
