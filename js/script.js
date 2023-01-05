@@ -24,9 +24,9 @@ function showPage(students, pageCounter) {
    // end of the slice
    let end = start + studentsPerPage
    let visibleStudents = students.slice(start, end);
-   document.body.se = visibleStudents;
    //console.log(visibleStudents);
 
+   return visibleStudents;
 }
 
 showPage(studentsArray, 1);
@@ -44,12 +44,24 @@ function appendPageLinks() {
 // function to load buttons as needed
 function loadButtons() {
    let buttonsNeeded = Math.floor(totalStudents / studentsPerPage) + 1;
-   let button = document.createElement("button");
-   button.innerHTML = "I am a button";
-   let pagination = document.createElement("div");
-   pagination.appendChild(button);
 
-   // document.body.appendChild(button);
+   // create pagination element
+   let pagination = document.createElement("pagination");
+   pagination.style.backgroundColor = "red";
+
+   // problem is to append the pagination element to page element instead of body 
+   // how ???
+   // let page = document.body.getElementsByClassName("page");
+   
+   // loop to create buttons
+   for (let i = 1; i <= buttonsNeeded; i ++ ) {
+      let button = document.createElement("button");
+      button.innerHTML = i;
+      pagination.appendChild(button);
+   }
+
+   //document.body.append(pagination);
+   document.body.appendChild(pagination);
 
 }
 
