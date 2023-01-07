@@ -1,5 +1,4 @@
 
-
 let totalStudents = document.body.getElementsByClassName("student-item cf").length;
 let studentsPerPage = 10;
 
@@ -10,7 +9,6 @@ let htmlCollection = document.body.getElementsByClassName("student-item cf")
 let studentsArray = [].slice.call(htmlCollection);
 
 //console.log(studentsArray);
-
 
 /*** 
    function to hide all of the items in the 
@@ -42,27 +40,36 @@ function appendPageLinks() {
 
 
 // function to load buttons as needed
-function loadButtons() {
+function loadButtons(activePage) {
    let buttonsNeeded = Math.floor(totalStudents / studentsPerPage) + 1;
 
    // create pagination element
-   let pagination = document.createElement("pagination");
-   pagination.style.backgroundColor = "red";
+   let pagination = document.createElement("div");
+   pagination.className = "pagination";
 
-   // problem is to append the pagination element to page element instead of body 
-   // how ???
-   // let page = document.body.getElementsByClassName("page");
+   let ul = document.createElement("ul");
+   pagination.appendChild(ul);
    
    // loop to create buttons
    for (let i = 1; i <= buttonsNeeded; i ++ ) {
-      let button = document.createElement("button");
-      button.innerHTML = i;
-      pagination.appendChild(button);
+      let li = document.createElement("li");
+      let a = document.createElement("a");
+
+      // check if the page is active set attribute class
+      if (i == activePage) {
+         a.setAttribute("class", "active");
+      }
+
+      a.setAttribute("href", `#${i}`);
+      a.innerHTML = i;
+   
+      li.appendChild(a);
+      ul.appendChild(li);
    }
 
-   //document.body.append(pagination);
    document.body.appendChild(pagination);
-
 }
 
-loadButtons();
+loadButtons(1);
+
+//document.getElementById("pagination").addEventListener("click", loadButtons(2));
