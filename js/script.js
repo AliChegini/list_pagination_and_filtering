@@ -15,19 +15,31 @@ let studentsArray = [].slice.call(htmlCollection);
    list except for the ten you want to show.
 ***/
 
-function showPage(students, pageCounter) {
-   // start of the slice
-   let start = (pageCounter - 1) * studentsPerPage 
+// function showPage(students, pageCounter = 1) {
+//    // start of the slice
+//    let start = (pageCounter - 1) * studentsPerPage 
 
-   // end of the slice
-   let end = start + studentsPerPage
-   let visibleStudents = students.slice(start, end);
-   //console.log(visibleStudents);
+//    // end of the slice
+//    let end = start + studentsPerPage
+//    let visibleStudents = students.slice(start, end);
+//    //console.log(visibleStudents);
 
-   return visibleStudents;
+//    return visibleStudents;
+// }
+
+// TODO: figure out formula for i in range 
+function showPage(students, pageCounter = 1) {
+   //  i = ( pageCounter - 1 ) * studentPerPage
+   for (let i = ( pageCounter - 1 ) * studentsPerPage; i < students.length; i ++) {
+      if ( i >= (pageCounter * studentsPerPage) {
+         students[i].style.display = "none";
+      }
+   }
 }
 
-showPage(studentsArray, 1);
+
+
+showPage(htmlCollection, 2);
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
@@ -40,7 +52,7 @@ function appendPageLinks() {
 
 
 // function to load buttons as needed
-function loadButtons(activePage) {
+function loadButtons(activePage = 1) {
    let buttonsNeeded = Math.floor(totalStudents / studentsPerPage) + 1;
 
    // create pagination element
@@ -70,6 +82,6 @@ function loadButtons(activePage) {
    document.body.appendChild(pagination);
 }
 
-loadButtons(1);
+loadButtons();
 
 //document.getElementById("pagination").addEventListener("click", loadButtons(2));
