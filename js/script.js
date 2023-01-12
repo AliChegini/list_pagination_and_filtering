@@ -5,41 +5,36 @@ let studentsPerPage = 10;
 // getting htmlCollection
 let htmlCollection = document.body.getElementsByClassName("student-item cf")
 
-// converting htmlCollection to array
-let studentsArray = [].slice.call(htmlCollection);
+// number of buttons needed 
+let buttonsNeeded = Math.floor(totalStudents / studentsPerPage) + 1;
 
-//console.log(studentsArray);
 
 /*** 
    function to hide all of the items in the 
-   list except for the ten you want to show.
+   list except for the ten to show.
 ***/
 
-// function showPage(students, pageCounter = 1) {
-//    // start of the slice
-//    let start = (pageCounter - 1) * studentsPerPage 
-
-//    // end of the slice
-//    let end = start + studentsPerPage
-//    let visibleStudents = students.slice(start, end);
-//    //console.log(visibleStudents);
-
-//    return visibleStudents;
-// }
-
-// TODO: figure out formula for i in range 
 function showPage(students, pageCounter = 1) {
-   //  i = ( pageCounter - 1 ) * studentPerPage
-   for (let i = ( pageCounter - 1 ) * studentsPerPage; i < students.length; i ++) {
-      if ( i >= (pageCounter * studentsPerPage) {
-         students[i].style.display = "none";
-      }
+   // start of the slice
+   let start = (pageCounter - 1) * studentsPerPage 
+
+   // end of the slice
+   let end = start + studentsPerPage
+
+   // TODO; fix the bug for last page 
+   // add next and previous button
+   let studentsInLastPage = totalStudents % studentsPerPage;
+
+   // loop to hide all elements
+   for (let i = 0; i < students.length; i ++) {
+      students[i].style.display = "none";
+   }
+   // loop to display 10 students per page
+   for (let i = start; i < end; i ++) {
+      students[i].style.display = "block";
    }
 }
 
-
-
-showPage(htmlCollection, 2);
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
@@ -51,10 +46,9 @@ function appendPageLinks() {
 }
 
 
-// function to load buttons as needed
-function loadButtons(activePage = 1) {
-   let buttonsNeeded = Math.floor(totalStudents / studentsPerPage) + 1;
-
+// function to load buttons
+function loadButtons() {
+   
    // create pagination element
    let pagination = document.createElement("div");
    pagination.className = "pagination";
@@ -66,22 +60,45 @@ function loadButtons(activePage = 1) {
    for (let i = 1; i <= buttonsNeeded; i ++ ) {
       let li = document.createElement("li");
       let a = document.createElement("a");
-
-      // check if the page is active set attribute class
-      if (i == activePage) {
-         a.setAttribute("class", "active");
-      }
-
       a.setAttribute("href", `#${i}`);
       a.innerHTML = i;
    
       li.appendChild(a);
       ul.appendChild(li);
    }
-
    document.body.appendChild(pagination);
 }
 
-loadButtons();
 
-//document.getElementById("pagination").addEventListener("click", loadButtons(2));
+// function to set the active page
+function setActivePage(activePage = 1) {
+   let links = document.getElementsByTagName("a");
+
+   for (let i = 0; i < links.length; i ++) {
+      if (i == activePage-1) {
+         links[i].setAttribute("class", "active");
+      } else {
+         links[i].setAttribute("class", "");
+      }
+   }
+}
+
+showPage(htmlCollection);
+loadButtons();
+setActivePage();
+
+// event listener for dynamic elements
+document.body.addEventListener("click", function(e) {
+   let target = e.target.closest("a");
+
+   if (target) {
+      console.log("click detected!");
+      console.log(target.innerHTML);
+      reloadPage(target.innerHTML)
+   }
+});
+
+function reloadPage(pageCounter) {
+   showPage(htmlCollection, pageCounter);
+   setActivePage(pageCounter);
+}
